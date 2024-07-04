@@ -1,0 +1,16 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Windows PowerShell",
+    "terminal.integrated.env.windows": { 
+        "CHERE_INVOKING":"1", 
+        "PATH":"${PATH};D:/mingw64/bin", 
+        "MSYSTEM":"MINGW64" 
+    },
+    "files.associations": {
+        "iostream": "cpp",
+        "cstdlib": "cpp",
+        "ostream": "cpp",
+        "*.tcc": "cpp",
+        "compare": "cpp",
+        "type_traits": "cpp"
+    }, //导入bash环境，重要
+}
