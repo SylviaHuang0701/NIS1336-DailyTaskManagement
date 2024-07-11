@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Debug",
+            "generator": "Ninja",
+            "configurationType": "Debug",
+            "buildRoot": "${workspaceFolder}/build",
+            "installRoot": "${workspaceFolder}/install",
+            "cmakeCommandArgs": "",
+            "buildCommandArgs": "",
+            "ctestCommandArgs": "",
+            "variables": [],
+            "buildArgs": "-v",
+            "ctestArgs": "",
+            "workspaceFolder": "${workspaceFolder}",
+            "cmakeListsFolder": "${workspaceFolder}"
+        }
+    ]
+}

@@ -1,0 +1,2 @@
+D:\mingw64\bin\ar.exe qc libMylibrary.a CMakeFiles/Mylibrary.dir/UserManager.cpp.obj CMakeFiles/Mylibrary.dir/Task.cpp.obj CMakeFiles/Mylibrary.dir/TaskManager.cpp.obj
+D:\mingw64\bin\ranlib.exe libMylibrary.a

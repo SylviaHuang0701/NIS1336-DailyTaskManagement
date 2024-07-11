@@ -1,0 +1,26 @@
+[
+{
+  "directory": "D:/SJTU/homework/2023-2024-3/task_management_system/build/src",
+  "command": "D:\\mingw64\\bin\\g++.exe  @CMakeFiles/Mylibrary.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\Mylibrary.dir\\UserManager.cpp.obj -c D:\\SJTU\\homework\\2023-2024-3\\task_management_system\\src\\UserManager.cpp",
+  "file": "D:/SJTU/homework/2023-2024-3/task_management_system/src/UserManager.cpp",
+  "output": "src/CMakeFiles/Mylibrary.dir/UserManager.cpp.obj"
+},
+{
+  "directory": "D:/SJTU/homework/2023-2024-3/task_management_system/build/src",
+  "command": "D:\\mingw64\\bin\\g++.exe  @CMakeFiles/Mylibrary.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\Mylibrary.dir\\Task.cpp.obj -c D:\\SJTU\\homework\\2023-2024-3\\task_management_system\\src\\Task.cpp",
+  "file": "D:/SJTU/homework/2023-2024-3/task_management_system/src/Task.cpp",
+  "output": "src/CMakeFiles/Mylibrary.dir/Task.cpp.obj"
+},
+{
+  "directory": "D:/SJTU/homework/2023-2024-3/task_management_system/build/src",
+  "command": "D:\\mingw64\\bin\\g++.exe  @CMakeFiles/Mylibrary.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\Mylibrary.dir\\TaskManager.cpp.obj -c D:\\SJTU\\homework\\2023-2024-3\\task_management_system\\src\\TaskManager.cpp",
+  "file": "D:/SJTU/homework/2023-2024-3/task_management_system/src/TaskManager.cpp",
+  "output": "src/CMakeFiles/Mylibrary.dir/TaskManager.cpp.obj"
+},
+{
+  "directory": "D:/SJTU/homework/2023-2024-3/task_management_system/build/src",
+  "command": "D:\\mingw64\\bin\\g++.exe  @CMakeFiles/MyExecutable.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\MyExecutable.dir\\main.cpp.obj -c D:\\SJTU\\homework\\2023-2024-3\\task_management_system\\src\\main.cpp",
+  "file": "D:/SJTU/homework/2023-2024-3/task_management_system/src/main.cpp",
+  "output": "src/CMakeFiles/MyExecutable.dir/main.cpp.obj"
+}
+]

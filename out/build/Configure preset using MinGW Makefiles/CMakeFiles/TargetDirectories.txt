@@ -1,0 +1,14 @@
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/CMakeFiles/edit_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/CMakeFiles/rebuild_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/CMakeFiles/list_install_components.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/CMakeFiles/install.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/CMakeFiles/install/local.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/CMakeFiles/install/strip.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/Mylibrary.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/MyExecutable.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/edit_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/rebuild_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/list_install_components.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/install.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/install/local.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/out/build/Configure preset using MinGW Makefiles/src/CMakeFiles/install/strip.dir

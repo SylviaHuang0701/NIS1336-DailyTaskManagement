@@ -3,8 +3,8 @@
 
 int Task::nextId = 1;
 
-Task::Task(const std::string& name, time_t startTime, const Priority& priority, const Category& category, time_t reminderTime)
-    : id(nextId++), name(name), startTime(startTime), priority(priority), category(category), reminderTime(reminderTime) {}
+Task::Task(const std::string& name, time_t startTime, time_t reminderTime, const Priority& priority, const Category& category)
+    : id(nextId++), name(name), startTime(startTime), reminderTime(reminderTime), priority(priority), category(category) {}
 
 std::string priorityToString(Priority priority) {
     switch (priority) {
@@ -29,3 +29,4 @@ void Task::display() const {
               << "Priority: " << priorityToString(priority) << ", Category: " << categoryToString(category)
               << ", Reminder Time: " << ctime(&reminderTime) << std::endl;
 }
+

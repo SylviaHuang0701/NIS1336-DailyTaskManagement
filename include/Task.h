@@ -1,10 +1,8 @@
 #ifndef TASK_H
 #define TASK_H
 
-#include <iostream>
-#include <ctime>
 #include <string>
-#include <vector>
+#include <ctime>
 
 enum class Priority {
     High,
@@ -24,7 +22,7 @@ std::string priorityToString(Priority priority);
 std::string categoryToString(Category category);
 
 class Task {
-private:
+public:
     static int nextId;
     int id;
     std::string name;
@@ -33,15 +31,10 @@ private:
     Category category;
     time_t reminderTime;
 
-public:
-    Task(const std::string& name, time_t startTime, const Priority& priority, const Category& category, time_t reminderTime);
-    int getId() const { return id; }
-    std::string getName() const { return name; }
-    time_t getStartTime() const { return startTime; }
-    Priority getPriority() const { return priority; }
-    Category getCategory() const { return category; }
-    time_t getReminderTime() const { return reminderTime; }
+    Task(const std::string& name, time_t startTime, time_t reminderTime, const Priority& priority = Priority::High, const Category& category = Category::Study);
     void display() const;
 };
 
 #endif
+
+

@@ -1,0 +1,14 @@
+D:/SJTU/homework/2023-2024-3/task_management_system/build/CMakeFiles/edit_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/CMakeFiles/rebuild_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/CMakeFiles/list_install_components.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/CMakeFiles/install.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/CMakeFiles/install/local.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/CMakeFiles/install/strip.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/Mylibrary.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/MyExecutable.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/edit_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/rebuild_cache.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/list_install_components.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/install.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/install/local.dir
+D:/SJTU/homework/2023-2024-3/task_management_system/build/src/CMakeFiles/install/strip.dir
