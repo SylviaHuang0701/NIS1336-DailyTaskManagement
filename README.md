@@ -1,9 +1,9 @@
 # 任务管理系统设计文档
 
 ## 小组成员
-黄兰婷: 结构体与类的设计(Task TaskManager UserManager)，main函数编写，多线程编写,流程图绘制
+黄兰婷: 结构体与类的设计(Task TaskManager UserManager)，main函数编写，多线程编写,流程图绘制，部分GUI适配
 
-刘佳琪: 所有GUI改编
+刘佳琪: 所有GUI改编，流程图绘制
 
 ## 模块与类设计
 
