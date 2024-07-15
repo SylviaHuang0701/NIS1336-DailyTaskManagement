@@ -751,6 +751,440 @@ void Login::createFormGroupBox() {
 `Login` 类通过继承 `QDialog` 实现了一个简单的登录界面，包括输入用户名、密码、登录和注册功能。界面使用了多个 `QGroupBox` 和布局管理器来组织和显示控件。用户可以输入用户名和密码进行登录，或者点击注册按钮进行新用户注册，注册成功后显示成功提示信息。
 
 ---
+### 类：`Register`
+`Register` 类是一个基于 Qt 框架的注册界面，用于用户注册流程的实现。它提供了一个简单的界面，允许用户在用户不存在时选择是否进行注册。
+#### 头文件：`register.h`
+``` cpp
+#ifndef REGISTER_H
+#define REGISTER_H
+#include <QWidget>
+#include <QDialog>
+#include <QPushButton>
+#include <QtWidgets>
+class Register : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit Register(QWidget *parent = nullptr); // 构造函数，创建注册界面
+private slots:
+    void ifAccepted(); // 接受注册的槽函数
+    void ifRejected(); // 拒绝注册的槽函数
+signals:
+    void do_register(bool &flag); // 发出一个注册状态的信号
+private:
+    QTextEdit *bigEditor; // 用于显示注册信息的文本编辑框
+    QDialogButtonBox *buttonBox; // 按钮框，包含接受和拒绝按钮
+    bool flag; // 用于存储用户是否选择注册的标志
+};
+#endif // REGISTER_H
+```
+
+#### 实现文件：`register.cpp`
+
+```cpp
+#include <QDialog>
+#include <QTextEdit>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include "register.h"
+
+// 构造函数，初始化注册界面
+Register::Register(QWidget *parent) : QDialog(parent), flag(false)
+{
+    // 创建表单布局
+    QFormLayout *layout = new QFormLayout;
+
+    // 初始化文本编辑框，显示注册信息
+    bigEditor = new QTextEdit;
+    bigEditor->setPlainText(tr("User does not exist. Do you want to register?"));
+
+    // 创建按钮框，包含"是"和"否"两个按钮
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &Register::ifAccepted);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &Register::ifRejected);
+
+    // 设置按钮文本
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    if (okButton) {
+        okButton->setText(tr("Yes"));
+    }
+    QPushButton *noButton = buttonBox->button(QDialogButtonBox::Cancel);
+    if (noButton) {
+        noButton->setText(tr("No"));
+    }
+
+    // 将组件添加到布局中
+    layout->addRow(bigEditor);
+    layout->addWidget(buttonBox);
+
+    // 设置窗口标题和固定大小
+    setWindowTitle(tr("Time Management Program"));
+    setFixedSize(300, 100);
+
+    // 设置布局
+    setLayout(layout);
+}
+
+// 槽函数，当用户选择注册时调用
+void Register::ifAccepted()
+{
+    flag = true; // 设置标志为真，表示用户选择注册
+    emit do_register(flag); // 发出注册状态信号
+    close(); // 关闭注册对话框
+}
+
+// 槽函数，当用户选择不注册时调用
+void Register::ifRejected()
+{
+    flag = false; // 设置标志为假，表示用户选择不注册
+    emit do_register(flag); // 发出注册状态信号
+    close(); // 关闭注册对话框
+}
+```
+#### 类功能
+`Register` 类实现了一个简单的注册对话框，提供了用户选择是否注册的选项。当用户选择注册时，它会发出一个信号，通知其他组件用户的选择。这个类通过继承 `QDialog` 来实现，使用了 `QTextEdit` 来显示注册信息，以及 `QDialogButtonBox` 来提供用户交互的按钮。通过 `ifAccepted` 和 ifRejected 槽函数来处理用户的响应，并设置内部标志位 `flag` 来表示用户的决定。
+
+### 类：Menu
+`Menu` 类是该用户时间管理程序中的一个核心组件，提供了一个用户界面，允许用户通过各种选项来管理任务。它集成了添加任务、删除任务、显示特定日期的任务列表以及接收提醒的功能。
+
+#### 头文件：menu.h
+```cpp
+#ifndef MENU_H
+#define MENU_H
+
+#include <QWidget>
+#include <QFormLayout>
+#include <QPlainTextEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include "addtask.h"
+#include "deltask.h"
+#include "TaskManager.h"
+#include "TasksDialog.h"
+
+class Menu : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit Menu(QWidget *parent = nullptr); // 构造函数，创建菜单界面
+
+    // 更新任务列表显示的方法
+    void updateTaskList();
+    // TaskManager 实例，用于任务管理
+    TaskManager taskManager;
+
+private slots:
+    // 私有槽函数，用于添加任务
+    void addTask();
+    // 私有槽函数，用于删除任务
+    void deleteTask();
+    // 私有槽函数，用于按日期显示任务
+    void showTasksForDate();
+    // 处理从 TaskManager 接收到的任务列表
+    void handleTasksReady(const std::vector<Task>& tasksToShow);
+    // 显示提醒信息
+    void displayReminder(const QString& message);
+
+private:
+    // 用于显示任务列表的文本编辑框
+    QPlainTextEdit *plainTextEdit;
+    // 包含操作按钮的按钮框
+    QDialogButtonBox *buttonBox;
+    // 用于触发显示特定日期任务的按钮
+    QPushButton* showTasksButton;
+    // 用户输入日期的行编辑框
+    QLineEdit *dateLineEdit;
+};
+
+#endif // MENU_H
+```
+#### 实现文件：menu.cpp
+```cpp
+#include <QApplication>
+#include <QFormLayout>
+#include <QMessageBox>
+#include <QDateTime>
+#include <sstream>
+#include <regex>
+#include "menu.h"
+#include "login.h"
+#include "addtask.h"
+#include "deltask.h"
+#include "TaskManager.h"
+#include "tasksDialog.h"
+
+Menu::Menu(QWidget *parent) : QWidget(parent), taskManager(Login::username_s)
+{
+    // 初始化 plainTextEdit 控件并设置为只读
+    QFormLayout *layout = new QFormLayout;
+    plainTextEdit = new QPlainTextEdit(this);
+    plainTextEdit->setReadOnly(true);
+
+    // 初始化按钮框，并设置添加任务和删除任务按钮
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    QPushButton *addTaskButton = buttonBox->button(QDialogButtonBox::Ok);
+    QPushButton *deleteTaskButton = buttonBox->button(QDialogButtonBox::Cancel);
+    addTaskButton->setText(tr("Add new task"));
+    deleteTaskButton->setText(tr("Delete task"));
+
+    // 初始化日期输入和显示任务按钮
+    QLabel *dateLabel = new QLabel(tr("Enter date :"));
+    dateLineEdit = new QLineEdit(this);
+    dateLineEdit->setPlaceholderText("e.g. 2024-07 / 2024-07-15");
+    showTasksButton = new QPushButton(tr("Show Tasks"), this);
+
+    // 将组件添加到布局中并设置信号和槽的连接
+    layout->addRow(dateLabel, dateLineEdit);
+    layout->addWidget(showTasksButton);
+    connect(addTaskButton, &QPushButton::clicked, this, &Menu::addTask);
+    connect(deleteTaskButton, &QPushButton::clicked, this, &Menu::deleteTask);
+    connect(&taskManager, &TaskManager::tasksReady, this, &Menu::handleTasksReady);
+    connect(&taskManager, &TaskManager::reminder, this, &Menu::displayReminder);
+    connect(showTasksButton, &QPushButton::clicked, this, &Menu::showTasksForDate);
+
+    // 初始化定时器，用于周期性检查提醒
+    QTimer *reminderTimer = new QTimer(this);
+    connect(reminderTimer, &QTimer::timeout, &taskManager, &TaskManager::checkReminders);
+    reminderTimer->start(1000); // 每秒检查一次提醒
+
+    // 首次显示时更新任务列表
+    updateTaskList();
+
+    // 将布局应用于 Menu 窗口，并设置窗口标题和大小
+    layout->addWidget(plainTextEdit);
+    layout->addWidget(buttonBox);
+    setLayout(layout);
+    setWindowTitle(tr("Time Management Program: Welcome!"));
+    setFixedSize(600, 400);
+}
+```
+#### 类功能
+`Menu` 类提供了一个用户界面，允许用户执行以下操作：
+1. 添加新任务：通过 `addTask` 槽函数激活 `AddTask` 对话框，用户可以输入任务的详细信息。
+2. 删除任务：通过 `deleteTask` 槽函数激活 `Deltask` 对话框，用户可以通过输入任务 ID 来删除任务。
+3. 按日期筛选任务：用户输入日期后，可以通过 `showTasksForDate` 槽函数显示该日期的任务列表。
+4. 接收提醒：通过 `displayReminder` 槽函数，用户可以接收到任务提醒的弹窗通知。
+5. 任务列表更新：`updateTaskList` 函数用于从 `TaskManager` 加载并显示当前的任务列表。
+6. 定时:每秒触发一次 `TaskManager` 的 `checkReminders` 函数，以检查是否有任务提醒需要显示给用户。
+
+### 类：AddTask
+`AddTask` 类提供了一个基于 Qt 框架的图形用户界面（GUI），用于向任务管理程序中添加新任务。它允许用户输入任务的名称、开始时间、提醒时间、优先级和类型，并提供了必要的输入验证。
+
+#### 头文件：`addtask.h`
+```cpp
+#ifndef ADDTASK_H
+#define ADDTASK_H
+
+#include <QDialog>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QLabel>
+#include <QFormLayout>
+#include "TaskManager.h"
+
+class AddTask : public QDialog {
+    Q_OBJECT
+
+public:
+    explicit AddTask(TaskManager& taskManager, QWidget *parent = nullptr); // 构造函数
+
+signals:
+    void addTaskSuccessful(); // 任务添加成功信号
+
+private slots:
+    void ifAccepted(); // 当用户点击"确定"按钮时调用的槽函数
+
+private:
+    TaskManager& taskManager; // 引用 TaskManager 实例，用于添加任务
+    QLineEdit *lineEdits[5]; // 用于输入任务信息的 QLineEdit 数组
+    QDialogButtonBox *buttonBox; // 包含"确定"和"取消"按钮的按钮框
+};
+#endif // ADDTASK_H
+```
+#### 实现文件：`addtask.cpp`
+```cpp
+#include <string>
+#include <QDebug>
+#include <QString>
+#include "addtask.h"
+#include "TaskManager.h"
+#include "login.h"
+
+// 将字符串形式的日期时间转换为 time_t 类型的时间戳
+time_t parseDateTime(const std::string& dateTime) {
+    std::tm tm = {};
+    std::istringstream ss(dateTime);
+    ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
+    if (ss.fail()) {
+        throw std::runtime_error("Failed to parse date time");
+    }
+    return mktime(&tm);
+}
+
+AddTask::AddTask(TaskManager& taskManager, QWidget *parent) 
+    : QDialog(parent), taskManager(taskManager) {
+    // 初始化界面布局和组件
+    QFormLayout *layout = new QFormLayout;
+
+    // 创建并配置 QLineEdit 控件用于输入任务信息
+    for (int i = 0; i < 5; ++i) {
+        lineEdits[i] = new QLineEdit;
+        layout->addRow(new QLabel(tr("Task name: ")), lineEdits[0]);
+        // ... 为其他 lineEdits 设置标签和占位文本
+    }
+
+    // 创建并配置按钮框
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &AddTask::ifAccepted);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+    layout->addWidget(buttonBox);
+
+    // 设置对话框标题和大小
+    setWindowTitle(tr("Time Management Program -- Add Task"));
+    setFixedSize(500, 400);
+
+    setLayout(layout);
+}
+
+void AddTask::ifAccepted() {
+    // 处理用户点击"确定"后的逻辑
+    QString temp;
+    std::string task_name, start_time, reminder_time, priority_str, type_str;
+    bool flag = true;
+
+    // 获取输入并进行验证
+    task_name = lineEdits[0]->text().toStdString();
+    if (task_name.empty()) {
+        QMessageBox::information(nullptr, "Notice", "Task name is required.");
+        flag = false;
+    }
+    // ... 对其他输入进行验证
+
+    if (flag) {
+        try {
+            // 将日期时间字符串转换为时间戳
+            time_t startTime = parseDateTime(start_time);
+            time_t reminderTime = parseDateTime(reminder_time);
+            // 创建新任务并尝试添加到 TaskManager
+            Task newTask(task_name, startTime, reminderTime, static_cast<Priority>(priority), static_cast<Category>(type));
+            if (taskManager.addTask(newTask)) {
+                QMessageBox::information(nullptr, "Notice", "Task added successfully.");
+                emit addTaskSuccessful(); // 发出任务添加成功信号
+                accept(); // 关闭对话框
+            } else {
+                QMessageBox::information(nullptr, "Notice", "Failed to add task.");
+            }
+        } catch (const std::exception& e) {
+            QMessageBox::critical(nullptr, "Error", QString::fromStdString(e.what()));
+        }
+    }
+}
+```
+#### 类功能
+`AddTask` 类的主要功能是提供一个用户界面，允许用户通过填写表单来创建新的任务。用户可以指定任务的名称、开始时间、提醒时间、优先级和类型。输入验证确保了用户必须填写所有必要的信息，并且时间字段符合预期的格式。如果任务成功添加到 `TaskManager`，将发出 `addTaskSuccessful` 信号，提示用户任务添加成功，并关闭对话框。如果添加任务失败，将显示错误信息。
+
+### 类：`Deltask`
+
+`Deltask` 类提供了一个基于 Qt 框架的对话框，用于从任务管理程序中删除任务。用户可以通过输入任务的 ID 来指定要删除的任务。
+
+#### 头文件：`deltask.h`
+
+```cpp
+#ifndef DELTASK_H
+#define DELTASK_H
+
+#include <QDialog>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QLabel>
+#include <QFormLayout>
+#include "TaskManager.h"
+
+class Deltask : public QDialog {
+    Q_OBJECT
+
+public:
+    // 构造函数，接受一个 TaskManager 的引用和父 QWidget 的指针
+    explicit Deltask(TaskManager& taskManager, QWidget *parent = nullptr);
+
+signals:
+    // 任务删除成功的信号
+    void taskDeleted();
+
+private slots:
+    // 槽函数，当用户点击"确定"按钮时调用
+    void ifAccepted();
+
+private:
+    // TaskManager 的引用，用于访问任务管理功能
+    TaskManager& taskManager;
+    // 用于输入要删除的任务 ID 的 QLineEdit 控件
+    QLineEdit *lineEdit;
+    // 包含"确定"和"取消"按钮的 QDialogButtonBox 控件
+    QDialogButtonBox *buttonBox;
+};
+
+#endif // DELTASK_H
+```
+
+#### 实现文件：`deltask.cpp`
+
+```cpp
+#include "deltask.h"
+#include <QMessageBox>
+#include <QString>
+
+// 构造函数，初始化 Deltask 对象
+Deltask::Deltask(TaskManager& taskManager, QWidget *parent)
+    : QDialog(parent), taskManager(taskManager) {
+    // 创建表单布局并添加任务 ID 输入框
+    QFormLayout *layout = new QFormLayout;
+    lineEdit = new QLineEdit;
+    layout->addRow(new QLabel(tr("ID of the task you want to delete:")), lineEdit);
+
+    // 创建按钮框并添加"确定"和"取消"按钮
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    // 连接按钮的信号到 ifAccepted 槽函数
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &Deltask::ifAccepted);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+    layout->addWidget(buttonBox);
+
+    // 设置对话框标题和大小
+    setWindowTitle(tr("Time Management Program"));
+    setFixedSize(300, 200);
+
+    setLayout(layout);
+}
+
+// 槽函数，处理用户点击"确定"后的逻辑
+void Deltask::ifAccepted() {
+    QString id_q = lineEdit->text();
+    bool ok;
+    // 尝试将输入转换为整数
+    int taskId = id_q.toInt(&ok);
+    if (!ok) {
+        // 如果转换失败，提示用户输入有效的任务 ID
+        QMessageBox::information(this, tr("Notice"), tr("Please type a valid task ID."));
+        return;
+    }
+
+    // 使用 TaskManager 的 deleteTask 方法尝试删除任务
+    if (taskManager.deleteTask(taskId)) {
+        QMessageBox::information(this, tr("Notice"), tr("Task deleted successfully!"));
+        emit taskDeleted(); // 发出任务删除成功的信号
+    } else {
+        QMessageBox::information(this, tr("Notice"), tr("Failed to delete task."));
+    }
+    close(); // 关闭对话框
+}
+```
+
+#### 类功能
+
+`Deltask` 类的主要功能是提供一个简单的界面，允许用户通过输入任务 ID 来删除任务。用户可以点击"确定"来提交删除请求，如果任务删除成功，则会发出 `taskDeleted` 信号并关闭对话框；如果删除失败，则会显示相应的提示信息。该类通过 `TaskManager` 的引用访问任务管理功能，确保了与任务管理逻辑的解耦和重用。
 
 ## 接口设计
 
